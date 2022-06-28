@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "ConsultarCompraTotal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/css/Login.css" rel="stylesheet" />
+    <title>Total Compras</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Total Compras</h3>
+                    </div>
+                    <div class="panel-body">
+                        <hr />
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id Compra</th>
+                                    <th>Código Comprador</th>
+                                    <th>Comprador</th>
+                                    <th>Código Producto</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad Comprada</th>
+                                    <th>Fecha Compra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.IdUsuarioProducto</td>
+                                    <td>@item.IdUsuario</td>
+                                    <td>@item.Usuario</td>
+                                    <td>@item.IdProducto</td>
+                                    <td>@item.Producto</td>
+                                    <td>@item.Cantidad</td>
+                                    <td>@item.FechaCompra</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "ConsultarCompra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/css/Login.css" rel="stylesheet" />
+    <title>Hacer Compras</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Hacer Compras</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <hr />
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id Producto</th>
+                                    <th>Nombre Producto</th>
+                                    <th>Cantidad Disponible</th>
+                                    <th>Descripción Producto</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.IdProducto</td>
+                                        <td>@item.NombreProducto</td>
+                                        <td>@item.CantidadDisponible</td>
+                                        <td>@item.Descripcion</td>                                        
+                                        <td>
+                                            @Html.ActionLink("Comprar", "HacerCompra", "ProductoPrueba", new { IdProducto = item.IdProducto }, null)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</body>
+</html>
+

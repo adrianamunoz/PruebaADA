@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ProductoPrueba">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreProducto" Type="varchar" MaxLength="100" />
+          <Property Name="CantidadDisponible" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="UsuarioProducto">
+          <Key>
+            <PropertyRef Name="IdUsuarioProducto" />
+          </Key>
+          <Property Name="IdUsuarioProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="FechaCompra" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UsuarioPrueba">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="50" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" />
+          <Property Name="idTipoUsuario" Type="smallint" />
+          <Property Name="FechaCreacion" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_UsuarioProducto_ProductoPrueba">
+          <End Role="ProductoPrueba" Type="Self.ProductoPrueba" Multiplicity="1" />
+          <End Role="UsuarioProducto" Type="Self.UsuarioProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoPrueba">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="UsuarioProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioProducto_UsuarioPrueba">
+          <End Role="UsuarioPrueba" Type="Self.UsuarioPrueba" Multiplicity="1" />
+          <End Role="UsuarioProducto" Type="Self.UsuarioProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioPrueba">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioProducto">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spActualizarProductoPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spActualizarUsuarioPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Direccion" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="int" Mode="In" />
+          <Parameter Name="UsuarioP" Type="varchar" Mode="In" />
+          <Parameter Name="Identificacion" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+          <Parameter Name="idTipoUsuario" Type="smallint" Mode="In" />
+          <Parameter Name="Registrado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spComprarProductoPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spConsultaCompraEfectiva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spConsultaCompraTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spConsultaProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spConsultaProductoId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spConsultaUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spConsultaUsuarioId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identificacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spEliminarProductoPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEliminarUsuarioPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spRegistrarProductoPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Registrado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spRegistrarUsuarioPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Direccion" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="int" Mode="In" />
+          <Parameter Name="UsuarioP" Type="varchar" Mode="In" />
+          <Parameter Name="Identificacion" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+          <Parameter Name="idTipoUsuario" Type="smallint" Mode="In" />
+          <Parameter Name="Registrado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spValidarUsuarioPrueba" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ProductoPrueba" EntityType="Self.ProductoPrueba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioProducto" EntityType="Self.UsuarioProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioPrueba" EntityType="Self.UsuarioPrueba" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UsuarioProducto_ProductoPrueba" Association="Self.FK_UsuarioProducto_ProductoPrueba">
+            <End Role="ProductoPrueba" EntitySet="ProductoPrueba" />
+            <End Role="UsuarioProducto" EntitySet="UsuarioProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioProducto_UsuarioPrueba" Association="Self.FK_UsuarioProducto_UsuarioPrueba">
+            <End Role="UsuarioPrueba" EntitySet="UsuarioPrueba" />
+            <End Role="UsuarioProducto" EntitySet="UsuarioProducto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="spRegistrarUsuarioPrueba">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Direccion" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="Int32" />
+            <Parameter Name="UsuarioP" Mode="In" Type="String" />
+            <Parameter Name="Identificacion" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+            <Parameter Name="idTipoUsuario" Mode="In" Type="Int16" />
+            <Parameter Name="Registrado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="ProductoPrueba" EntityType="Model.ProductoPrueba" />
+          <EntitySet Name="UsuarioPrueba" EntityType="Model.UsuarioPrueba" />
+          <FunctionImport Name="spActualizarUsuarioPrueba">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Direccion" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="Int32" />
+            <Parameter Name="UsuarioP" Mode="In" Type="String" />
+            <Parameter Name="Identificacion" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+            <Parameter Name="idTipoUsuario" Mode="In" Type="Int16" />
+            <Parameter Name="Registrado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spEliminarUsuarioPrueba">
+          <Parameter Name="Identificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spConsultaUsuarioId" ReturnType="Collection(Model.spConsultaUsuarioId_Result)">
+          <Parameter Name="Identificacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEliminarProductoPrueba">
+          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spRegistrarProductoPrueba">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Registrado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spActualizarProductoPrueba">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spConsultaUsuario" ReturnType="Collection(Model.spConsultaUsuario_Result)" />
+          <FunctionImport Name="spConsultaProducto" ReturnType="Collection(Model.spConsultaProducto_Result)" />
+          <FunctionImport Name="spConsultaProductoId" ReturnType="Collection(Model.spConsultaProductoId_Result)">
+          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UsuarioProducto" EntityType="Model.UsuarioProducto" />
+          <AssociationSet Name="FK_UsuarioProducto_ProductoPrueba" Association="Model.FK_UsuarioProducto_ProductoPrueba">
+            <End Role="ProductoPrueba" EntitySet="ProductoPrueba" />
+            <End Role="UsuarioProducto" EntitySet="UsuarioProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioProducto_UsuarioPrueba" Association="Model.FK_UsuarioProducto_UsuarioPrueba">
+            <End Role="UsuarioPrueba" EntitySet="UsuarioPrueba" />
+            <End Role="UsuarioProducto" EntitySet="UsuarioProducto" />
+          </AssociationSet>
+          <FunctionImport Name="spValidarUsuarioPrueba" ReturnType="Collection(Model.spValidarUsuarioPrueba_Result)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spConsultaCompraTotal" ReturnType="Collection(Model.spConsultaCompraTotal_Result)" />
+          <FunctionImport Name="spConsultaCompraEfectiva" ReturnType="Collection(Model.spConsultaCompraEfectiva_Result)">
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spComprarProductoPrueba">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="ProductoPrueba">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreProducto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CantidadDisponible" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="UsuarioProducto" Relationship="Model.FK_UsuarioProducto_ProductoPrueba" FromRole="ProductoPrueba" ToRole="UsuarioProducto" />
+        </EntityType>
+        <EntityType Name="UsuarioPrueba">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Identificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoUsuario" Type="Int16" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UsuarioProducto" Relationship="Model.FK_UsuarioProducto_UsuarioPrueba" FromRole="UsuarioPrueba" ToRole="UsuarioProducto" />
+        </EntityType>
+        <ComplexType Name="spConsultaUsuarioId_Result">
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Direccion" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Telefono" Nullable="true" />
+          <Property Type="String" Name="Usuario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Identificacion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="contraseña" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="idTipoUsuario" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spConsultaUsuario_Result">
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Direccion" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Telefono" Nullable="true" />
+          <Property Type="String" Name="Usuario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Identificacion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="contraseña" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="idTipoUsuario" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spConsultaProducto_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CantidadDisponible" Nullable="true" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="spConsultaProductoId_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CantidadDisponible" Nullable="true" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="UsuarioProducto">
+          <Key>
+            <PropertyRef Name="IdUsuarioProducto" />
+          </Key>
+          <Property Name="IdUsuarioProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="FechaCompra" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductoPrueba" Relationship="Model.FK_UsuarioProducto_ProductoPrueba" FromRole="UsuarioProducto" ToRole="ProductoPrueba" />
+          <NavigationProperty Name="UsuarioPrueba" Relationship="Model.FK_UsuarioProducto_UsuarioPrueba" FromRole="UsuarioProducto" ToRole="UsuarioPrueba" />
+        </EntityType>
+        <Association Name="FK_UsuarioProducto_ProductoPrueba">
+          <End Type="Model.ProductoPrueba" Role="ProductoPrueba" Multiplicity="1" />
+          <End Type="Model.UsuarioProducto" Role="UsuarioProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoPrueba">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="UsuarioProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioProducto_UsuarioPrueba">
+          <End Type="Model.UsuarioPrueba" Role="UsuarioPrueba" Multiplicity="1" />
+          <End Type="Model.UsuarioProducto" Role="UsuarioProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioPrueba">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioProducto">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spValidarUsuarioPrueba_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Identificacion" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="idTipoUsuario" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spConsultaCompraTotal_Result">
+          <Property Type="Int32" Name="IdUsuarioProducto" Nullable="false" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCompra" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="spConsultaCompraEfectiva_Result">
+          <Property Type="Int32" Name="IdUsuarioProducto" Nullable="false" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCompra" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities" >
+          <FunctionImportMapping FunctionImportName="spRegistrarUsuarioPrueba" FunctionName="Model.Store.spRegistrarUsuarioPrueba" />
+          <EntitySetMapping Name="ProductoPrueba">
+            <EntityTypeMapping TypeName="Model.ProductoPrueba">
+              <MappingFragment StoreEntitySet="ProductoPrueba">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CantidadDisponible" ColumnName="CantidadDisponible" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioPrueba">
+            <EntityTypeMapping TypeName="Model.UsuarioPrueba">
+              <MappingFragment StoreEntitySet="UsuarioPrueba">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spActualizarUsuarioPrueba" FunctionName="Model.Store.spActualizarUsuarioPrueba" />
+          <FunctionImportMapping FunctionImportName="spEliminarUsuarioPrueba" FunctionName="Model.Store.spEliminarUsuarioPrueba" />
+          <FunctionImportMapping FunctionImportName="spConsultaUsuarioId" FunctionName="Model.Store.spConsultaUsuarioId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spConsultaUsuarioId_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEliminarProductoPrueba" FunctionName="Model.Store.spEliminarProductoPrueba" />
+          <FunctionImportMapping FunctionImportName="spRegistrarProductoPrueba" FunctionName="Model.Store.spRegistrarProductoPrueba" />
+          <FunctionImportMapping FunctionImportName="spActualizarProductoPrueba" FunctionName="Model.Store.spActualizarProductoPrueba" />
+          <FunctionImportMapping FunctionImportName="spConsultaUsuario" FunctionName="Model.Store.spConsultaUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spConsultaUsuario_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spConsultaProducto" FunctionName="Model.Store.spConsultaProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spConsultaProducto_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="CantidadDisponible" ColumnName="CantidadDisponible" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spConsultaProductoId" FunctionName="Model.Store.spConsultaProductoId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spConsultaProductoId_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="CantidadDisponible" ColumnName="CantidadDisponible" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="UsuarioProducto">
+            <EntityTypeMapping TypeName="Model.UsuarioProducto">
+              <MappingFragment StoreEntitySet="UsuarioProducto">
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdUsuarioProducto" ColumnName="IdUsuarioProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spValidarUsuarioPrueba" FunctionName="Model.Store.spValidarUsuarioPrueba">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spValidarUsuarioPrueba_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spConsultaCompraTotal" FunctionName="Model.Store.spConsultaCompraTotal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spConsultaCompraTotal_Result">
+                <ScalarProperty Name="IdUsuarioProducto" ColumnName="IdUsuarioProducto" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spConsultaCompraEfectiva" FunctionName="Model.Store.spConsultaCompraEfectiva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spConsultaCompraEfectiva_Result">
+                <ScalarProperty Name="IdUsuarioProducto" ColumnName="IdUsuarioProducto" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spComprarProductoPrueba" FunctionName="Model.Store.spComprarProductoPrueba" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

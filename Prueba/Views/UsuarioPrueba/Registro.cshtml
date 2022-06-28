@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/css/Login.css" rel="stylesheet" />
+    <title>Registrarse</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Registrarse</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form accept-charset="UTF-8" role="form" action="@Url.Action("Registro","UsuarioPrueba")" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Nombre *" name="Nombre" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Dirección *" name="Direccion" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Telefono *" name="Telefono" type="number" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Usuario *" name="UsuarioP" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Identificación *" name="Identificacion" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <select name="idTipoUsuario" required class="form-control">
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Usuario</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Contraseña *" name="Contrasena" type="password" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Confirmar Contraseña *" name="ConfirmarContrasena" type="password" value="" required>
+                                </div>
+                                @if (ViewData["Mensaje"] != null)
+                                {
+                                    <div class="alert alert-success" role="alert">
+                                        @ViewData["Mensaje"]
+                                    </div>
+                                }
+                                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Ingresar">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            Ya tienes cuenta? <a href="@Url.Action("Login","UsuarioPrueba")">Iniciar Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</body>
+</html>
+
+
